@@ -21,6 +21,7 @@ func getCert(certfile, keyfile string) (c tls.Certificate, err error) {
 // CertReqFunc returns a function for tlsConfig.GetCertificate
 func CertReqFunc(certfile, keyfile string) func(*tls.ClientHelloInfo) (*tls.Certificate, error) {
 	c, err := getCert(certfile, keyfile)
+
 	return func(hello *tls.ClientHelloInfo) (*tls.Certificate, error) {
 		log.Printf("Received TLS Hello asking for %s: sending certificate\n", hello.ServerName)
 		if err != nil || certfile == "" {

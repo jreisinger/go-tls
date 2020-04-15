@@ -2,10 +2,8 @@ package main
 
 import (
 	"crypto/tls"
-	"fmt"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/jreisinger/go-tls/utils"
 )
@@ -17,9 +15,8 @@ func main() {
 }
 
 func myHandler(w http.ResponseWriter, r *http.Request) {
-	log.Printf("Handling request from %s ...", r.RemoteAddr)
+	log.Printf("Handling request from %s", r.RemoteAddr)
 	w.Write([]byte("Hello from server!\n"))
-	log.Printf("... body sent to %s.", r.RemoteAddr)
 }
 
 func getServer() *http.Server {
@@ -37,7 +34,6 @@ func getServer() *http.Server {
 
 func must(err error) {
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "server error: %v", err)
-		os.Exit(1)
+		log.Fatalf("server error: %v", err)
 	}
 }
